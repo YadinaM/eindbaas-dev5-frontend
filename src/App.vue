@@ -17,8 +17,6 @@
         </nav>
     </header>
     <div>
-        app
-        <a></a>
         <router-view></router-view>
     </div>
 </template>
@@ -27,7 +25,6 @@
   :root{ /* css variabelen */
       --colorText: black;
       --colorButton: #F433FF;
-      --radius: 8px;
       --fontFamily: sans-serif;
   }
 
@@ -54,7 +51,7 @@
       text-decoration: none;
       color: var(--colorText);
       margin-left: 0.3em;
-      margin-right: 0.5em;
+      margin-right: 0.3em;
   }
 
   .nav__text{
@@ -65,7 +62,7 @@
       color: white;
       background-color: #F433FF;
       padding: 0.5em 1em;
-      border-radius: 12px;
+      border-radius: 30px;
   }
 
   @media (min-width: 600px) {
