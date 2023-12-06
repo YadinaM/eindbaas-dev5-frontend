@@ -1,10 +1,10 @@
 <script setup>
+
 </script>
 
 <template>
   <div>
-      app
-      <router-view></router-view>
+    Login
   </div>
 </template>
 
