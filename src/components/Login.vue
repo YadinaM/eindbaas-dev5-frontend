@@ -25,8 +25,10 @@
 
 <style scoped>
 /* Styles for the login form */
-.login {
+.login{
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-top: 2em;
 }
@@ -42,6 +44,7 @@
   background-color: black;
   padding: 180px;
   font-size: 1.2em;
+  border-radius: 8px;
 }
 
 .login-form__form {
@@ -75,5 +78,10 @@
   padding-top: 0.7em;
   padding-bottom: 0.7em;
   font-weight: bold;
+}
+@media (min-width: 1000px) {
+  .login__logo{
+    width: 20%;
+  }
 }
 </style>
