@@ -12,8 +12,8 @@
                 </div>
                 <div class="nav__text">
                     <router-link to="/Orders"><a>Orders</a></router-link>
-                    <router-link to="/"><a>Profile</a></router-link>
-                    <router-link to="/Orders"><a class="nav__text__order">Order Shoe</a></router-link>
+                    <router-link to="/AsjustPassword"><a>Profile</a></router-link>
+                    <router-link to="/Shoe"><a class="nav__text__order">Order Shoe</a></router-link>
                 </div>
             </div>
         </nav>
