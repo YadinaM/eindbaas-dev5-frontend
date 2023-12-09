@@ -1,36 +1,52 @@
 <script setup>
+    import { ref, onMounted } from 'vue';
 
+    const orders = ref([]);
+
+    onMounted(async () => {
+    try {
+        const response = await fetch("http://localhost:3000/api/v1/shoes");
+        const data = await response.json();
+        console.log(data); // Log the data to the console
+        orders.value = data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+});
 </script>
 
 <template>
   <div class="content">
     <h1>Orders</h1>
-    <h2>Amount of orders: 12</h2>
+    <h2>Amount of orders: {{ orders.length }}</h2>
 
-    <div class="order">
-        <div class="order__img">
-            <img src="../assets/schoen.png" alt="tijdelijk">
-        </div>
-        <div class="order__text">
-            <p>Order from: Username</p>
-            <p>Status: <spam>In production</spam></p>
-            <router-link to="/Orders/1">View details</router-link>
-        </div>
-        <div class="order__price">
-            <p>€112</p>
+    <div v-for="(orderGroup, index) in orders.data" :key="index">
+        <div v-for="(order, orderIndex) in orderGroup.shoes" :key="orderIndex" class="order">
+            <div class="order__img">
+                <img src="../assets/schoen.png" alt="tijdelijk">
+            </div>
+            <div class="order__text">
+                <p>Order from: {{ order.username }}</p>
+                <p>Status: {{ order.status }}</p>
+                <router-link :to="'/Orders/' + order._id">View details</router-link>
+            </div>
+            <div class="order__price">
+                <p>€112</p>
+            </div>
         </div>
     </div>
-
   </div>
 </template>
 
 <style scoped>
+
     .order{
         display: flex;
         flex-direction: row;
         background-color: #FFEBFB;
         padding: 1em 0.5em;
         border-radius: 8px;
+        margin-bottom: 1em;
     }
 
     .order__img img{
