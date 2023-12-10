@@ -98,9 +98,10 @@
             flex-direction: column;
         }
 
-        .order__text a{
+        .order__text a {
             padding: 0.6em 1.5em;
-            margin-top: 2em;
+            margin: 2em auto;
+            display: inline-block;
         }
 
         .order__price {
@@ -133,9 +134,12 @@
             flex-direction: column;
         }
 
-        .order__text a{
+        .order__text a {
             padding: 0.6em 1.5em;
-            margin-top: 1.8em;
+            margin: 2em auto;
+            margin-bottom: -1em;
+            margin-left: -0.2em;
+            display: inline-block;
         }
 
         .order__price {
