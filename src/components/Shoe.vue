@@ -1,8 +1,91 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 
+const name = ref('');
+const username = ref('');
+const shoeSize = ref('');
+const color = ref('');
+const status = ref('');
+const shoes = ref([]);
+
+const submitOrder = async () => {
+  // Send a POST request to the backend to create a new shoe order
+  const response = await fetch("http://localhost:3000/api/v1/shoes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name.value,
+      username: username.value,
+      shoeSize: shoeSize.value,
+      color: color.value,
+      status: status.value,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    // If the request is successful, update the list of orders
+    if (shoes.value) {
+      shoes.value.push(data.data.shoe);
+    }
+    // Clear the form fields
+    name.value = '';
+    username.value = '';
+    shoeSize.value = '';
+    color.value = '';
+    status.value = '';
+  } else {
+    console.error("Failed to submit order:", data.message);
+  }
+};
+
+const fetchShoes = async () => {
+  // Fetch the list of shoe orders from the backend
+  const response = await fetch("http://localhost:3000/api/v1/shoes");
+  const data = await response.json();
+
+  if (response.ok) {
+    shoes.value = data.data.shoes;
+  } else {
+    console.error("Failed to fetch shoe orders:", data.message);
+  }
+};
+
+onMounted(() => {
+  // Fetch the list of shoe orders when the component is mounted
+  fetchShoes();
+});
 </script>
 
 <template>
+  <div>
+    <h2>Shoe Orders</h2>
+
+    <!-- Form to submit a new shoe order -->
+    <form @submit.prevent="submitOrder">
+      <label for="name">Name:</label>
+      <input v-model="name" type="text" required />
+
+      <label for="username">Username:</label>
+      <input v-model="username" type="text" required />
+
+      <label for="shoeSize">Shoe Size:</label>
+      <input v-model="shoeSize" type="text" required />
+
+      <label for="color">Color:</label>
+      <input v-model="color" type="text" required />
+
+      <label for="status">Status:</label>
+      <input v-model="status" type="text" required />
+
+      <button type="submit">Submit Order</button>
+    </form>
+  </div>
+</template>
+<!--<template>
   <div class="page-container">
     <div class="shoe-product">
       <div class="shoe-details">
@@ -14,7 +97,6 @@
       </div>
     </div>
     <div class="order-form">
-      <!--a form to order a shoe. select a size, a color and a quantity-->
       <form class="order-form__form">
         <label for="size" class="order-form__label">Size</label>
         <select name="size" id="size" class="order-form__select">
@@ -27,11 +109,6 @@
           <label for="colorLaces" class="order-form__label">Laces</label>
           <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
         </div>
-        <!--<select name="color" id="color" class="order-form__select">
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-        </select>-->
         <div class="order-form__container">
           <label for="colorSole" class="order-form__label">Sole</label>
           <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
@@ -46,10 +123,10 @@
       </form>
     </div>
   </div>
-</template>
+</template>-->
 
 <style scoped>
-.page-container {
+/*.page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,7 +165,6 @@
   margin-bottom: 0.5em;
 }
 .order-form__select, .order-form__input{
-  /* Your styles for the form selects */
   display: block;
   margin-bottom: 3em;
   padding: 10px 80px;
@@ -108,7 +184,7 @@
   border: none;
   padding: 0;
   margin: 0;
-  appearance: none; /* Remove default styling in some browsers */
+  appearance: none; 
 }
 .order-form__submit {
   background-color: black;
@@ -134,7 +210,6 @@
   }
   .shoe-product, .order-form {
     flex: 1;
-    /* Optional: add additional styling for spacing, margin, etc. */
   }
   .order-form__form {
   width: 60%;
@@ -144,5 +219,5 @@
   .shoe-image__img {
   width: 40em;
 }
-}
+}*/
 </style>
