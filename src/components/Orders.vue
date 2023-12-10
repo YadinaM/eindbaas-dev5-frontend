@@ -2,21 +2,33 @@
     import { ref, onMounted } from 'vue';
 
     const orders = ref([]);
+    onMounted(async () => {
+        try {
+            const response = await fetch("http://localhost:3000/api/v1/shoes");
+            const result = await response.json();
+            console.log(result); // Log the data to the console
 
-onMounted(async () => {
-  try {
-    const response = await fetch("http://localhost:3000/api/v1/shoes");
-    const result = await response.json();
-    console.log(result); // Log the data to the console
+            // Assuming "shoes" is always present in the response
+            const data = result.data[0].shoes;
 
-    // Assuming "shoes" is always present in the response
-    const data = result.data[0].shoes;
+            orders.value = data;
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    });
+    const newestFilter = () => {
+        orders.value.sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
+        });
+    };
+    newestFilter();
 
-    orders.value = data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-});
+    const oldestFilter = () => {
+        orders.value.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        });
+    };
+    oldestFilter();
 </script>
 
 <template>
@@ -24,11 +36,15 @@ onMounted(async () => {
     <h1>Orders</h1>
     <h2>Amount of orders: {{ orders.length }}</h2>
 
+    <button @click="newestFilter">Newest first</button>
+    <button @click="oldestFilter">Oldest first</button>
+
     <div v-for="o in orders" :key="o._id" class="order">
       <div class="order__img">
         <img src="../assets/schoen.png" alt="tijdelijk">
       </div>
     <div class="order__text">
+        <p>Ordered on: {{ o.date }}</p>
         <p>Order from: {{ o.username }}</p>
         <p>Status: {{ o.status }}</p>
         <router-link :to="'/Orders/' + o._id">View details</router-link>
