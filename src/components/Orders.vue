@@ -3,15 +3,19 @@
 
     const orders = ref([]);
 
-    onMounted(async () => {
-    try {
-        const response = await fetch("http://localhost:3000/api/v1/shoes");
-        const data = await response.json();
-        console.log(data); // Log the data to the console
-        orders.value = data;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-    }
+onMounted(async () => {
+  try {
+    const response = await fetch("http://localhost:3000/api/v1/shoes");
+    const result = await response.json();
+    console.log(result); // Log the data to the console
+
+    // Assuming "shoes" is always present in the response
+    const data = result.data[0].shoes;
+
+    orders.value = data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 });
 </script>
 
@@ -20,20 +24,18 @@
     <h1>Orders</h1>
     <h2>Amount of orders: {{ orders.length }}</h2>
 
-    <div v-for="(orderGroup, index) in orders.data" :key="index">
-        <div v-for="(order, orderIndex) in orderGroup.shoes" :key="orderIndex" class="order">
-            <div class="order__img">
-                <img src="../assets/schoen.png" alt="tijdelijk">
-            </div>
-            <div class="order__text">
-                <p>Order from: {{ order.username }}</p>
-                <p>Status: {{ order.status }}</p>
-                <router-link :to="'/Orders/' + order._id">View details</router-link>
-            </div>
-            <div class="order__price">
-                <p>€112</p>
-            </div>
-        </div>
+    <div v-for="o in orders" :key="o._id" class="order">
+      <div class="order__img">
+        <img src="../assets/schoen.png" alt="tijdelijk">
+      </div>
+    <div class="order__text">
+        <p>Order from: {{ o.username }}</p>
+        <p>Status: {{ o.status }}</p>
+        <router-link :to="'/Orders/' + o._id">View details</router-link>
+    </div>
+      <div class="order__price">
+        <p>€112</p>
+      </div>
     </div>
   </div>
 </template>
