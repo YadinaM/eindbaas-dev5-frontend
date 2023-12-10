@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const name = ref('');
-const username = ref('');
+/*const name = ref('');
+const username = ref('');*/
 const shoeSize = ref('');
 const color = ref('');
 const status = ref('');
@@ -16,8 +16,8 @@ const submitOrder = async () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: name.value,
-      username: username.value,
+      /*name: name.value,
+      username: username.value,*/
       shoeSize: shoeSize.value,
       color: color.value,
       status: status.value,
@@ -32,8 +32,8 @@ const submitOrder = async () => {
       shoes.value.push(data.data.shoe);
     }
     // Clear the form fields
-    name.value = '';
-    username.value = '';
+   /* name.value = '';
+    username.value = '';*/
     shoeSize.value = '';
     color.value = '';
     status.value = '';
@@ -61,31 +61,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <h2>Shoe Orders</h2>
-
-    <!-- Form to submit a new shoe order -->
-    <form @submit.prevent="submitOrder">
-      <label for="name">Name:</label>
-      <input v-model="name" type="text" required />
-
-      <label for="username">Username:</label>
-      <input v-model="username" type="text" required />
-
-      <label for="shoeSize">Shoe Size:</label>
-      <input v-model="shoeSize" type="text" required />
-
-      <label for="color">Color:</label>
-      <input v-model="color" type="text" required />
-
-      <label for="status">Status:</label>
-      <input v-model="status" type="text" required />
-
-      <button type="submit">Submit Order</button>
-    </form>
-  </div>
-</template>
-<!--<template>
   <div class="page-container">
     <div class="shoe-product">
       <div class="shoe-details">
@@ -96,37 +71,42 @@ onMounted(() => {
         <img src="../assets/schoen.png" alt="" class="shoe-image__img">
       </div>
     </div>
-    <div class="order-form">
-      <form class="order-form__form">
-        <label for="size" class="order-form__label">Size</label>
-        <select name="size" id="size" class="order-form__select">
+    <!-- Form to submit a new shoe order -->
+    <div class="order-form"> 
+      <form @submit.prevent="submitOrder" class="order-form__form">
+        <!--<label for="name">Name:</label>
+        <input v-model="name" type="text" required />
+
+        <label for="username">Username:</label>
+        <input v-model="username" type="text" required />-->
+
+        <label for="shoeSize" class="order-form__label">Shoe Size:</label>
+        <!--<input v-model="shoeSize" type="text" required />-->
+        <select v-model="shoeSize" required class="order-form__select">
           <option value="39">39</option>
           <option value="40">40</option>
           <option value="41">41</option>
         </select>
-        <label for="color" class="order-form__label">Select a color</label>
-        <div class="order-form__container">
-          <label for="colorLaces" class="order-form__label">Laces</label>
-          <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
-        </div>
-        <div class="order-form__container">
-          <label for="colorSole" class="order-form__label">Sole</label>
-          <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
-        </div>  
-        <div class="order-form__container">
-          <label for="colorOutside" class="order-form__label">Outside</label>
-          <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
-        </div>
-        <label for="quantity" class="order-form__label">Quantity</label>
-        <input type="number" name="quantity" id="quantity" class="order-form__input" min="1" max="10">
-        <input type="submit" value="Order" class="order-form__submit">
+
+        <label for="color" class="order-form__label">Color:</label>
+        <!--<input v-model="color" type="text" required />-->
+        <select v-model="color" required class="order-form__select">
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+        </select>
+
+        <label for="status" class="order-form__label">Status:</label>
+        <input v-model="status" type="text" required class="order-form__input"/>
+
+        <button type="submit" class="order-form__submit">Submit Order</button>
       </form>
-    </div>
   </div>
-</template>-->
+  </div>
+</template>
 
 <style scoped>
-/*.page-container {
+.page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,7 +152,7 @@ onMounted(() => {
   border: none;
   background-color: #f9f9f9;
 }
-.order-form__container {
+/*.order-form__container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -185,7 +165,7 @@ onMounted(() => {
   padding: 0;
   margin: 0;
   appearance: none; 
-}
+}*/
 .order-form__submit {
   background-color: black;
   border-radius: 8px;
@@ -219,5 +199,5 @@ onMounted(() => {
   .shoe-image__img {
   width: 40em;
 }
-}*/
+}
 </style>
