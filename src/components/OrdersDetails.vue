@@ -55,11 +55,13 @@ const deleteOrder = async () => {
     <div class="order-details__info">
       <div class="order-details__text-info">
         <p class="order-details__info-item"><strong>Order from:</strong> {{ orderDetails.username }}</p>
-        <p class="order-details__info-item"><strong>Size:</strong>{{ orderDetails.shoeSize }}</p>
+        <p class="order-details__info-item"><strong>Ordered on:</strong> {{ orderDetails.date }}</p>
+        <p class="order-details__info-item"><strong>Quantity:</strong> {{ orderDetails.quantity }}</p>
+        <p class="order-details__info-item"><strong>Size:</strong> {{ orderDetails.shoeSize }}</p>
         <p class="order-details__info-item"><strong>Adjustments</strong></p>
-        <p class="order-details__info-item"><strong>Laces:</strong> green</p>
-        <p class="order-details__info-item"><strong>Soul:</strong> pink</p>
-        <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.color }}</p>
+        <p class="order-details__info-item"><strong>Laces:</strong> {{ orderDetails.colorLaces }}</p>
+        <p class="order-details__info-item"><strong>Sole:</strong> {{ orderDetails.colorSole }}</p>
+        <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.colorOutside }}</p>
         
         <label for="textInput" class="order-details__label">Status: </label>
         <input type="text" id="textInput" v-model="orderDetails.status" placeholder="Current status" class="order-details__input">
