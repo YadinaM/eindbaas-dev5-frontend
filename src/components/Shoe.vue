@@ -1,5 +1,33 @@
 <script setup>
+import { ref } from 'vue';
 
+const selectedSize = ref("");
+const selectedColor = ref("");
+const selectedQuantity = ref("");
+
+const submit = async (event) => {
+  event.preventDefault();
+  const shoeData = {
+    shoeSize: selectedSize.value,
+    color: selectedColor.value,
+    quantity: selectedQuantity.value,
+  };
+
+  try {
+    const response = await fetch("http://localhost:3000/api/v1/shoes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(shoeData),
+    });
+
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error("Error posting data:", error);
+  }
+};
 </script>
 
 <template>
@@ -15,9 +43,9 @@
     </div>
     <div class="order-form">
       <!--a form to order a shoe. select a size, a color and a quantity-->
-      <form class="order-form__form">
+      <form class="order-form__form" @submit="submit">
         <label for="size" class="order-form__label">Size</label>
-        <select name="size" id="size" class="order-form__select">
+        <select v-model="selectedSize" name="size" id="size" class="order-form__select">
           <option value="39">39</option>
           <option value="40">40</option>
           <option value="41">41</option>
@@ -25,23 +53,23 @@
         <label for="color" class="order-form__label">Select a color</label>
         <div class="order-form__container">
           <label for="colorLaces" class="order-form__label">Laces</label>
-          <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
+          <input v-model="selectedColor" type="color" id="colorLaces" name="colorLaces" class="order-form__color">
         </div>
         <!--<select name="color" id="color" class="order-form__select">
           <option value="red">Red</option>
           <option value="blue">Blue</option>
           <option value="green">Green</option>
         </select>-->
-        <div class="order-form__container">
+        <!---<div class="order-form__container">
           <label for="colorSole" class="order-form__label">Sole</label>
           <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
         </div>  
         <div class="order-form__container">
           <label for="colorOutside" class="order-form__label">Outside</label>
           <input type="color" id="selectedColor" name="selectedColor" class="order-form__color">
-        </div>
+        </div>-->
         <label for="quantity" class="order-form__label">Quantity</label>
-        <input type="number" name="quantity" id="quantity" class="order-form__input" min="1" max="10">
+        <input v-model="selectedQuantity" type="number" name="quantity" id="quantity" class="order-form__input" min="1" max="10">
         <input type="submit" value="Order" class="order-form__submit">
       </form>
     </div>
