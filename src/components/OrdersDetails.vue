@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const orderDetails = ref(null);
 const route = useRoute();
+const router = useRouter();
 
 onMounted(async () => {
   const orderId = route.params.id;
@@ -23,6 +24,25 @@ onMounted(async () => {
     console.error("Error fetching order details:", error);
   }
 });
+
+const deleteOrder = async () => {
+  const orderId = route.params.id;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      console.log('Order deleted successfully');
+      router.push('/orders');
+    } else {
+      console.error('Failed to delete order:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error deleting order:', error);
+  }
+};
 </script>
 
 <template>
@@ -31,7 +51,7 @@ onMounted(async () => {
     <h1>Order Details</h1>
   </div>
   <div class="order-details__content" v-if="orderDetails">
-    <a class="order-details__delete-button">Delete Order</a>
+    <a class="order-details__delete-button" @click="deleteOrder">Delete Order</a>
     <div class="order-details__info">
       <div class="order-details__text-info">
         <p class="order-details__info-item"><strong>Order from:</strong> {{ orderDetails.username }}</p>
