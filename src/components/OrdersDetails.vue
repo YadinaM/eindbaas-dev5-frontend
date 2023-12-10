@@ -1,4 +1,28 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+
+const orderDetails = ref(null);
+const route = useRoute();
+
+onMounted(async () => {
+  const orderId = route.params.id;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`);
+    const result = await response.json();
+    console.log(result);
+
+    if (result.data && result.data.length > 0) {
+      orderDetails.value = result.data[0].shoe;
+      console.log("Order details found:", orderDetails.value);
+    } else {
+      console.error("No order details found in the response:", result);
+    }
+  } catch (error) {
+    console.error("Error fetching order details:", error);
+  }
+});
 </script>
 
 <template>
@@ -6,19 +30,19 @@
   <div class="order-details__title">
     <h1>Order Details</h1>
   </div>
-  <div class="order-details__content">
+  <div class="order-details__content" v-if="orderDetails">
     <a class="order-details__delete-button">Delete Order</a>
     <div class="order-details__info">
       <div class="order-details__text-info">
-        <p class="order-details__info-item"><strong>Order from:</strong> Name</p>
-        <p class="order-details__info-item"><strong>Size:</strong> 39</p>
+        <p class="order-details__info-item"><strong>Order from:</strong> {{ orderDetails.username }}</p>
+        <p class="order-details__info-item"><strong>Size:</strong>{{ orderDetails.shoeSize }}</p>
         <p class="order-details__info-item"><strong>Adjustments</strong></p>
         <p class="order-details__info-item"><strong>Laces:</strong> green</p>
         <p class="order-details__info-item"><strong>Soul:</strong> pink</p>
-        <p class="order-details__info-item"><strong>Outside:</strong> blue</p>
+        <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.color }}</p>
         
         <label for="textInput" class="order-details__label">Status: </label>
-        <input type="text" id="textInput" placeholder="Current status" class="order-details__input">
+        <input type="text" id="textInput" v-model="orderDetails.status" placeholder="Current status" class="order-details__input">
         <button class="order-details__adjust-button">Adjust</button>
       </div>
       <div class="order-details__image">
