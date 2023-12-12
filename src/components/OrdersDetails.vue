@@ -6,6 +6,20 @@ const orderDetails = ref(null);
 const route = useRoute();
 const router = useRouter();
 
+const ws = new WebSocket("ws://localhost:3000/primus");
+ws.onopen = () => {
+  console.log("Connected to websocket 😊");
+};
+
+ws.onmessage = (event) => {
+  console.log("Received message:", event.data);
+  const data = JSON.parse(event.data);
+
+  if (data.action === "statusUpdated" && data.orderId === route.params.id) {
+    orderDetails.value.status = data.newStatus;
+  }
+};
+
 onMounted(async () => {
   const orderId = route.params.id;
 
@@ -24,6 +38,43 @@ onMounted(async () => {
     console.error("Error fetching order details:", error);
   }
 });
+
+
+const updateStatus = async () => {
+  const orderId = route.params.id;
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        status: orderDetails.value.status,
+      }),
+    });
+
+    if (response.ok) {
+      console.log('Order status updated successfully');
+      ws.send(JSON.stringify({
+        action: 'updateStatus',
+        orderId: orderId,
+        newStatus: orderDetails.value.status,
+      }));
+    } else {
+      const responseData = await response.json();
+      if (response.status === 400 && responseData.message.includes('Missing required fields')) {
+        console.error('Missing required fields:', responseData.message);
+        errorMessage.value = 'Missing required fields: status';
+      } else {
+        console.error('Failed to update order status:', responseData.message);
+      }
+    }
+  } catch (error) {
+    console.error('Error updating order status:', error);
+  }
+};
+
 
 const deleteOrder = async () => {
   const orderId = route.params.id;
@@ -64,8 +115,13 @@ const deleteOrder = async () => {
         <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.colorOutside }}</p>
         
         <label for="textInput" class="order-details__label">Status: </label>
-        <input type="text" id="textInput" v-model="orderDetails.status" placeholder="Current status" class="order-details__input">
-        <button class="order-details__adjust-button">Adjust</button>
+        <input type="text"
+      id="textInput"
+      v-model="orderDetails.status"
+      placeholder="Current status"
+      class="order-details__input"
+      @input="updateStatus">
+        <button class="order-details__adjust-button" @click="updateStatus">Adjust</button>
       </div>
       <div class="order-details__image">
         <img src="../assets/schoen.png" alt="tijdelijk">

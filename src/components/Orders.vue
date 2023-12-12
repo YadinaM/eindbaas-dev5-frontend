@@ -1,16 +1,24 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, reactive  } from 'vue';
 
     const orders = ref([]);
     const ws = new WebSocket("ws://localhost:3000/primus");
+
     ws.onopen = () => {
         console.log("Connected to websocket");
     };
+
     ws.onmessage = (event) => {
         console.log("Received message:", event.data);
         const data = JSON.parse(event.data);
         if (data.action === "create") {
             orders.value.push(data.data.shoe);
+        } else if (data.action === "statusUpdated") {
+            // Update the status in the local orders array
+            const orderToUpdate = orders.value.find(order => order._id === data.orderId);
+            if (orderToUpdate) {
+            orderToUpdate.status = data.newStatus;
+            }
         }
     };
 
