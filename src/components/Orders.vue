@@ -2,13 +2,24 @@
     import { ref, onMounted } from 'vue';
 
     const orders = ref([]);
+    const ws = new WebSocket("ws://localhost:3000/primus");
+    ws.onopen = () => {
+        console.log("Connected to websocket");
+    };
+    ws.onmessage = (event) => {
+        console.log("Received message:", event.data);
+        const data = JSON.parse(event.data);
+        if (data.action === "create") {
+            orders.value.push(data.data.shoe);
+        }
+    };
+
     onMounted(async () => {
         try {
             const response = await fetch("http://localhost:3000/api/v1/shoes");
             const result = await response.json();
             console.log(result); // Log the data to the console
 
-            // Assuming "shoes" is always present in the response
             const data = result.data[0].shoes;
 
             orders.value = data;

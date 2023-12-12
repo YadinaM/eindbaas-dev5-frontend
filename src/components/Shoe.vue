@@ -12,6 +12,21 @@ const colorOutside = ref('');
 const quantity = ref('');
 const shoes = ref([]);
 
+//connect websocket
+const ws = new WebSocket("ws://localhost:3000/primus");
+ws.onopen = () => {
+  console.log("Connected to websocket");
+};
+ws.onmessage = (event) => {
+  console.log("Received message:", event.data);
+  const data = JSON.parse(event.data);
+  if (data.action === "create") {
+    if(shoes.value){
+    shoes.value.push(data.data.shoe);
+    }
+  }
+};
+
 const submitOrder = async () => {
   // Send a POST request to the backend to create a new shoe order
   const response = await fetch("http://localhost:3000/api/v1/shoes", {
@@ -49,6 +64,8 @@ const submitOrder = async () => {
     colorSole.value = '';
     colorOutside.value = '';
     quantity.value = '';
+
+    ws.send(JSON.stringify({ action: "create", data: data.data }));
   } else {
     console.error("Failed to submit order:", data.message);
   }
