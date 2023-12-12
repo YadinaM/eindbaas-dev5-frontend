@@ -1,5 +1,33 @@
 <script setup>
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const router = useRouter();
 
+const username = ref('');
+const password = ref('');
+
+const loginUser = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/v1/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: username.value, password: password.value }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem('token', data.token);
+      router.push('/shoe');
+    } else {
+      console.error('Login failed:', data.message);
+    }
+  } catch (error) {
+    console.error('Error during login:', error.message);
+  }
+};
 </script>
 
 <template>
@@ -9,12 +37,12 @@
   </div>
   <!-- Login Form -->
   <div class="login-form">
-    <form class="login-form__form">
+    <form class="login-form__form" @submit.prevent="loginUser">
       <label class="login-form__label" for="username">Username</label>
-      <input class="login-form__input" type="text" id="username" name="username">
+      <input v-model="username" class="login-form__input" type="text" id="username" name="username">
 
       <label class="login-form__label" for="password">Password</label>
-      <input class="login-form__input" type="password" id="password" name="password">
+      <input v-model="password" class="login-form__input" type="password" id="password" name="password">
 
       <input class="login-form__submit" type="submit" value="Log in">
     </form>
