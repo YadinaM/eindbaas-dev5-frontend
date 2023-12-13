@@ -25,11 +25,11 @@ const loginUser = async () => {
       localStorage.setItem('username', username.value);
       localStorage.setItem('admin', data.data.admin);
 
-      console.log(localStorage);
+      //console.log(localStorage);
       if( data.data.admin){
-        router.push('/shoe');
-      } else{
         router.push('/orders');
+      } else{
+        console.error('Access denied. User is not an admin.');
       }
 
     } else {

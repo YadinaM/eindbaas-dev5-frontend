@@ -11,10 +11,38 @@ import * as VueRouter from "vue-router";
 
 const routes = [
     { path: '/', component: Login },
-    { path: '/Orders', component: Orders },
-    { path: '/Orders/:id', component: OrdersDetails },
+
+    { path: '/Orders', component: Orders, beforeEnter: (to, from, next) => {
+        const isAdmin = localStorage.getItem('admin') === 'true';
+            if (isAdmin) {
+                next();
+            } else {
+                next('/');
+            }
+        }, 
+    },
+
+    { path: '/Orders/:id', component: OrdersDetails, beforeEnter: (to, from, next) => {
+        const isAdmin = localStorage.getItem('admin') === 'true';
+            if (isAdmin) {
+                next();
+            } else {
+                next('/');
+            }
+        },  
+    },
+
     { path: '/Shoe', component: Shoe },
-    { path: '/AdjustPassword', component: AdjustPassword },
+
+    { path: '/AdjustPassword', component: AdjustPassword, beforeEnter: (to, from, next) => {
+        const isAdmin = localStorage.getItem('admin') === 'true';
+            if (isAdmin) {
+                next();
+            } else {
+                next('/');
+            }
+        },  
+    },
 ]
 
 const router = VueRouter.createRouter({
