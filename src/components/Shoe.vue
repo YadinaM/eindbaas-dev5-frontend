@@ -11,6 +11,7 @@ const colorSole = ref('');
 const colorOutside = ref('');
 const quantity = ref('');
 const shoes = ref([]);
+const username = ref(null);
 
 //connect websocket
 const ws = new WebSocket("ws://localhost:3000/primus");
@@ -29,14 +30,21 @@ ws.onmessage = (event) => {
 
 const submitOrder = async () => {
   // Send a POST request to the backend to create a new shoe order
+    const storedUsername = localStorage.getItem('username');
+
+  if (!localStorage.getItem('username')) {
+    console.error("Username is null. Unable to submit order.");
+    return;
+  }
   const response = await fetch("http://localhost:3000/api/v1/shoes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     body: JSON.stringify({
-      /*name: name.value,
-      username: username.value,*/
+      /*name: name.value,*/
+      username: storedUsername,
       shoeSize: shoeSize.value,
       /*color: color.value,
       status: status.value,*/
@@ -86,6 +94,8 @@ const fetchShoes = async () => {
 onMounted(() => {
   // Fetch the list of shoe orders when the component is mounted
   fetchShoes();
+username.value = localStorage.getItem('username');
+
 });
 </script>
 
