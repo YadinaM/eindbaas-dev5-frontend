@@ -19,12 +19,19 @@ const loginUser = async () => {
     const data = await response.json();
 
     if (response.ok) {
-            console.log('Login successful:', data);
+      console.log('Login successful:', data);
 
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.data.token);
       localStorage.setItem('username', username.value);
+      localStorage.setItem('admin', data.data.admin);
 
-      router.push('/shoe');
+      console.log(localStorage);
+      if( data.data.admin){
+        router.push('/shoe');
+      } else{
+        router.push('/orders');
+      }
+
     } else {
       console.error('Login failed:', data.message);
     }
