@@ -28,6 +28,11 @@
     onMounted(async () => {
         try {
             const response = await fetch("http://localhost:3000/api/v1/shoes");
+            headers = {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            };
+            response.headers = headers;
             const result = await response.json();
             console.log(result); // Log the data to the console
 

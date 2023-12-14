@@ -25,6 +25,11 @@ onMounted(async () => {
 
   try {
     const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`);
+    const headers = {
+      "Content-Type": "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    };
+    response.headers = headers;
     const result = await response.json();
     console.log(result);
 
@@ -48,6 +53,7 @@ const updateStatus = async () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, //nieuw
       },
       body: JSON.stringify({
         status: orderDetails.value.status,
@@ -82,6 +88,10 @@ const deleteOrder = async () => {
   try {
     const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`, {
       method: 'DELETE',
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, //nieuw
+      }, 
     });
 
     if (response.ok) {
