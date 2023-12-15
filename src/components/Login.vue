@@ -25,6 +25,7 @@ const loginUser = async () => {
       localStorage.setItem('username', username.value);
       localStorage.setItem('admin', data.data.admin);
 
+      console.log('Admin status:', data.data.admin); // Add this line for debugging
       //console.log(localStorage);
       if( data.data.admin){
         router.push('/orders');

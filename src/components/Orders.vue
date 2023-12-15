@@ -27,12 +27,36 @@
 
     onMounted(async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/v1/shoes");
+            console.log(localStorage.getItem('token')); // Log the token to the console
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("No token found, please login first");
+                return;
+            }
+            console.log("using token:", token);
+            const headers = {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`,
+            };
+
+            const response = await fetch("http://localhost:3000/api/v1/shoes", { headers });
+            if (!response.ok) {
+            console.error("API request failed:", response.statusText);
+            return;
+            }
+            /*const response = await fetch("http://localhost:3000/api/v1/shoes");
             headers = {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             };
-            response.headers = headers;
+            response.headers = headers;*/
+            /*const response = await fetch("http://localhost:3000/api/v1/shoes", {
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            });*/
+
             const result = await response.json();
             console.log(result); // Log the data to the console
 
