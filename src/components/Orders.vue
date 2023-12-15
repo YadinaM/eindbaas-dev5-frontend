@@ -1,6 +1,6 @@
 <script setup>
     import { ref, onMounted } from 'vue';
-
+    import { jwtDecode } from "jwt-decode";
     const orders = ref([]);
     const ws = new WebSocket("ws://localhost:3000/primus");
 
@@ -26,8 +26,18 @@
     };
 
     onMounted(async () => {
+        console.log(localStorage.getItem("token"));
+        //decode jwt token
+        const decoded = jwtDecode(localStorage.getItem("token"));
+        console.log(decoded);
+        
         try {
-            const response = await fetch("http://localhost:3000/api/v1/shoes");
+            const response = await fetch("http://localhost:3000/api/v1/shoes", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
             const result = await response.json();
             console.log(result); // Log the data to the console
 

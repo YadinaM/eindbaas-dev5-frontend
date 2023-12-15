@@ -29,7 +29,8 @@ const loginUser = async () => {
       if( data.data.admin){
         router.push('/orders');
       } else{
-        console.error('Access denied. User is not an admin.');
+        router.push('/shoe');
+        //console.error('Access denied. User is not an admin.');
       }
 
     } else {

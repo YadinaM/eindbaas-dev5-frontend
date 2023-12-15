@@ -40,7 +40,7 @@ const submitOrder = async () => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      //"Authorization": `Bearer ${localStorage.getItem('token')}`,
     },
     body: JSON.stringify({
       /*name: name.value,*/
@@ -81,7 +81,13 @@ const submitOrder = async () => {
 
 const fetchShoes = async () => {
   // Fetch the list of shoe orders from the backend
-  const response = await fetch("http://localhost:3000/api/v1/shoes");
+  const response = await fetch("http://localhost:3000/api/v1/shoes", 
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
   const data = await response.json();
 
   if (response.ok) {
@@ -94,7 +100,7 @@ const fetchShoes = async () => {
 onMounted(() => {
   // Fetch the list of shoe orders when the component is mounted
   fetchShoes();
-username.value = localStorage.getItem('username');
+  username.value = localStorage.getItem('username');
 
 });
 </script>
