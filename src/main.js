@@ -17,7 +17,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
-                next('/');
+                next('/Shoe');
             }
         }, 
     },
@@ -27,7 +27,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
-                next('/');
+                next('/Shoe');
             }
         },  
     },
@@ -39,7 +39,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
-                next('/');
+                next('/Shoe');
             }
         },  
     },
