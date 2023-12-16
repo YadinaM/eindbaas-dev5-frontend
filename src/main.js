@@ -12,6 +12,11 @@ import * as VueRouter from "vue-router";
 const routes = [
     { path: '/', component: Login },
 
+    {
+        path: '/users/:id',
+        component: AdjustPassword,
+    },
+
     { path: '/Orders', component: Orders, beforeEnter: (to, from, next) => {
         const isAdmin = localStorage.getItem('admin') === 'true';
             if (isAdmin) {
