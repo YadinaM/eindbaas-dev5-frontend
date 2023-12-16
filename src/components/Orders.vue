@@ -61,22 +61,38 @@
         });
     };
     oldestFilter();
+
+    const formatDate = (dateString) => {
+    const options = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      second: 'numeric', 
+      timeZoneName: 'short' 
+    };
+
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  };
+
 </script>
 
 <template>
   <div class="content">
-    <h1>Orders</h1>
-    <h2>Amount of orders: {{ orders.length }}</h2>
+    <h1 class="content__title">Orders</h1>
+    <h2 class="content__subtitle">Amount of orders: {{ orders.length }}</h2>
 
-    <button @click="newestFilter">Newest first</button>
-    <button @click="oldestFilter">Oldest first</button>
+    <button class="content__btn" @click="newestFilter">Newest first</button>
+    <button class="content__btn" @click="oldestFilter">Oldest first</button>
 
     <div v-for="o in orders" :key="o._id" class="order">
       <div class="order__img">
         <img src="../assets/schoen.png" alt="tijdelijk">
       </div>
     <div class="order__text">
-        <p>Ordered on: {{ o.date }}</p>
+        <p>Ordered on: {{ formatDate(o.date) }}</p>
         <p>Order from: {{ o.username }}</p>
         <p>Status: {{ o.status }}</p>
         <router-link :to="'/Orders/' + o._id">View details</router-link>
@@ -89,7 +105,9 @@
 </template>
 
 <style scoped>
-
+    .content {
+        font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
     .order{
         display: flex;
         flex-direction: row;
@@ -97,21 +115,18 @@
         padding: 1em 0.5em;
         border-radius: 8px;
         margin-bottom: 1em;
+        /*font-family: sans-serif;*/
     }
-
     .order__img img{
         width: 120px;
     }
-
     .order__text p{
         margin-top: -0.5em;
     }
-
     .order__text{
         margin-left: 0.5em;
         margin-top: 0.5em;
     }
-
     .order__text a{
         background-color: white;
         padding: 0.5em 0.8em;
@@ -122,12 +137,24 @@
         text-decoration: none;
         color: black;
     }
-
     .order__price{
         margin-left: 1.8em;
+        padding-left: 1em;
         margin-top: -1em;
+        font-weight: bold;
     }
-
+    .content__btn{
+        background-color: #F433FF;
+        padding: 0.5em 0.8em;
+        border-radius: 8px;
+        border-style: solid;
+        border-color: #F433FF;
+        border-width: 2px;
+        text-decoration: none;
+        color: white;
+        margin-bottom: 1em;
+        margin-right: 1em;
+    }
      @media (min-width: 600px) and (max-width: 1200px) {
          .content{
              margin-left: 2em;

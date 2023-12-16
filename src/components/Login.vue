@@ -45,7 +45,7 @@ const loginUser = async () => {
 <template>
   <main>
   <div class="login">
-    <img class="login__logo" src="../assets/logo.png" alt="Logo">
+    <img class="login__logo" src="../assets/logo2.png" alt="Logo">
   </div>
   <!-- Login Form -->
   <div class="login-form">
@@ -64,38 +64,45 @@ const loginUser = async () => {
 
 
 <style scoped>
-/* Styles for the login form */
+main{
+  background-color: #1E1E1E;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .login{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2em;
+  background-color: #ffffff;
+  height: 40vh;
+  margin-bottom: 2em;
 }
 
 .login__logo {
   width: 60%;
+  border-radius: 10px;
 }
 
 .login-form {
   display: flex;
   justify-content: center;
-  margin-top: 2em;
-  background-color: black;
-  padding: 180px;
+  margin-top: 8em;
   font-size: 1.2em;
-  border-radius: 8px;
 }
 
 .login-form__form {
   color: white;
-  font-family: sans-serif;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .login-form__label {
-  /* Add styles for the form labels */
   display: block;
   margin-bottom: 0.5em;
+  font-weight: bolder;
 }
 
 .login-form__input {

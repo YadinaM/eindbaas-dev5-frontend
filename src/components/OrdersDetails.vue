@@ -104,6 +104,21 @@ const deleteOrder = async () => {
     console.error('Error deleting order:', error);
   }
 };
+
+const formatDate = (dateString) => {
+    const options = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      second: 'numeric', 
+      timeZoneName: 'short' 
+    };
+
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+    };
 </script>
 
 <template>
@@ -116,10 +131,9 @@ const deleteOrder = async () => {
     <div class="order-details__info">
       <div class="order-details__text-info">
         <p class="order-details__info-item"><strong>Order from:</strong> {{ orderDetails.username }}</p>
-        <p class="order-details__info-item"><strong>Ordered on:</strong> {{ orderDetails.date }}</p>
+        <p class="order-details__info-item"><strong>Ordered on:</strong> {{ formatDate(orderDetails.date) }}</p>
         <p class="order-details__info-item"><strong>Quantity:</strong> {{ orderDetails.quantity }}</p>
         <p class="order-details__info-item"><strong>Size:</strong> {{ orderDetails.shoeSize }}</p>
-        <p class="order-details__info-item"><strong>Adjustments</strong></p>
         <p class="order-details__info-item"><strong>Laces:</strong> {{ orderDetails.colorLaces }}</p>
         <p class="order-details__info-item"><strong>Sole:</strong> {{ orderDetails.colorSole }}</p>
         <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.colorOutside }}</p>
@@ -142,20 +156,26 @@ const deleteOrder = async () => {
 </template>
 
 <style scoped>
+  .order-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
   .order-details__title {
     margin-left: 1em;
     margin-bottom: 2em;
   }
 
   .order-details__content a {
-    background-color: white;
+    background-color: #FF3333;
     padding: 0.5em 0.8em;
     border-radius: 8px;
     border-style: solid;
     border-color: #FF3333;
     border-width: 2px;
     text-decoration: none;
-    color: #FF3333;
+    color: #FFFFFF;
     font-weight: bold;
   }
 
@@ -173,26 +193,31 @@ const deleteOrder = async () => {
 
   .order-details__input {
     border-radius: 8px;
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
+    background-color: #f9f9f9;
+    border: none;
+    padding: 15px 90px 15px 20px;
+    display: block;
   }
 
   .order-details__adjust-button {
+    background-color: black;
     border-radius: 8px;
-    background-color: white;
-    padding: 0.5em 0.8em;
-    border-style: solid;
-    border-color: #F433FF;
-    border-width: 2px;
-    text-decoration: none;
-    color: black;
+    border-style: none;
+    color: white;
+    width: 100%;
+    display: block;
+    font-size: 1em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    font-weight: bold;
   }
 
   .order-details__image img {
     display: none;
+
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 800px) {
     .order-details {
       display: flex;
       flex-direction: column;

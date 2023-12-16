@@ -109,8 +109,8 @@ onMounted(() => {
   <div class="page-container">
     <div class="shoe-product">
       <div class="shoe-details">
-        <h1 class="shoe-title">Title</h1>
-        <span class="shoe-price">Price</span>
+        <h1 class="shoe-title">SWEAR JZ Model</h1>
+        <span class="shoe-price">€112</span>
       </div>
       <div class="shoe-image">
         <img src="../assets/schoen.png" alt="" class="shoe-image__img">
@@ -179,7 +179,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: sans-serif;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .shoe-product {
   display: flex;
