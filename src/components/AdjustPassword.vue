@@ -1,30 +1,29 @@
 <script setup>
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+//import { useRoute, useRouter } from 'vue-router';
+import { jwtDecode } from 'jwt-decode';
 
-const route = useRoute();
-const router = useRouter();
+//const route = useRoute();
+//const router = useRouter();
 
-//const currentPassword = ref('');
-const newPassword = ref('');
+let currentPassword = ref('');
+let newPassword = ref('');
 
 const changePassword = async () => {
+  const decodedToken = jwtDecode(localStorage.getItem('token'));
+  const id = decodedToken.userId;
   try {
-    /*const userId = route.params.id;
-    const apiUrl = `http://localhost:3000/api/v1/users/${userId}`;*/
-
-    /*hard coded, pas automatiserend mogelijk na login*/
-    const userId = '656b3237e2c3b968f84fa896';
-    const apiUrl = `http://localhost:3000/api/v1/users/${userId}`;
+    const apiUrl = `http://localhost:3000/api/v1/users/${id}`;
 
     const response = await fetch(apiUrl, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
-        password: newPassword.value,
+        currentPassword: currentPassword.value,
+        newPassword: newPassword.value,
       }),
     });
 
@@ -45,8 +44,8 @@ const changePassword = async () => {
   <div>
     <h2>Change Password</h2>
     <form @submit.prevent="changePassword">
-      <!--<label for="currentPassword">Current Password:</label>
-      <input type="password" id="currentPassword" v-model="currentPassword" required>-->
+      <label for="currentPassword">Current Password:</label>
+      <input type="password" id="currentPassword" v-model="currentPassword" required>
 
       <label for="newPassword">New Password:</label>
       <input type="password" id="newPassword" v-model="newPassword" required>
