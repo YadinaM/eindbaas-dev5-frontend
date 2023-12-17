@@ -8,6 +8,7 @@ const router = useRouter();
 
 let currentPassword = ref('');
 let newPassword = ref('');
+let errorMessage = ref('');
 
 const changePassword = async () => {
   const decodedToken = jwtDecode(localStorage.getItem('token'));
@@ -32,6 +33,7 @@ const changePassword = async () => {
       console.log(responseData.message);
     } else {
       const errorData = await response.json();
+      errorMessage.value = 'Current password is incorrect';
       console.error(errorData.message);
     }
   } catch (error) {
@@ -46,31 +48,37 @@ const logout = () => {
 </script>
 
 <template>
-<div class="content">
-    <div class="change-password">
-    <h2 class="change-password__title">Change Password</h2>
-    <div class="change-password__form-container">
-        <form class="change-password__form" @submit.prevent="changePassword">
-          <label class="change-password__label" for="currentPassword">Current Password:</label>
-          <input class="change-password__input" type="password" id="currentPassword" v-model="currentPassword" required>
+  <div class="content">
+      <div class="change-password">
+      <h2 class="change-password__title">Change Password</h2>
+      <div class="change-password__form-container">
+          <form class="change-password__form" @submit.prevent="changePassword">
+            <label class="change-password__label" for="currentPassword">Current Password:</label>
+            <p class="change-password__error" v-if="errorMessage">{{ errorMessage }}</p>
+            <input class="change-password__input" type="password" id="currentPassword" v-model="currentPassword" required>
 
-          <label class="change-password__label" for="newPassword">New Password:</label>
-          <input class="change-password__input" type="password" id="newPassword" v-model="newPassword" required>
+            <label class="change-password__label" for="newPassword">New Password:</label>
+            <input class="change-password__input" type="password" id="newPassword" v-model="newPassword" required>
 
-          <button class="change-password__button" type="submit">Change Password</button>
-      </form>
+            <button class="change-password__button" type="submit">Change Password</button>
+        </form>
+      </div>
+    </div>
+    <div class="logout">
+      <a class="logout__button" @click="logout">log out</a>
     </div>
   </div>
-  <div class="logout">
-    <a class="logout__button" @click="logout">log out</a>
-  </div>
-</div>
 </template>
 
 <style scoped>
   h2{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-left: 1em;
+  }
+
+  .change-password__error{
+    font-size: 0.8em;
+    color: red;
   }
 
   .change-password__form-container{
