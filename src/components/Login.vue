@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
 const router = useRouter();
+const errorMessage = ref('');
 
 const username = ref('');
 const password = ref('');
@@ -30,14 +32,17 @@ const loginUser = async () => {
         router.push('/orders');
       } else{
         router.push('/shoe');
+        window.alert('You are not an admin. Access denied.');
         //console.error('Access denied. User is not an admin.');
       }
 
     } else {
       console.error('Login failed:', data.message);
+      errorMessage.value = 'Username or password invalid';
     }
   } catch (error) {
     console.error('Error during login:', error.message);
+    errorMessage.value = 'An error occurred during login';
   }
 };
 </script>
@@ -51,6 +56,7 @@ const loginUser = async () => {
   <div class="login-form">
     <form class="login-form__form" @submit.prevent="loginUser">
       <label class="login-form__label" for="username">Username</label>
+      <p class="login-form__error" v-if="errorMessage">{{ errorMessage }}</p>
       <input v-model="username" class="login-form__input" type="text" id="username" name="username">
 
       <label class="login-form__label" for="password">Password</label>
@@ -70,6 +76,11 @@ main{
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+.login-form__error{
+  font-size: 0.8em;
+  color: red;
 }
 
 .login{
