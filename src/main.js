@@ -17,6 +17,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
+                window.alert('You are not an admin. Access denied.');
                 next('/Shoe');
             }
         }, 
@@ -27,6 +28,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
+                window.alert('You are not an admin. Access denied.');
                 next('/Shoe');
             }
         },  
@@ -39,6 +41,7 @@ const routes = [
             if (isAdmin) {
                 next();
             } else {
+                window.alert('You are not an admin. Access denied.');
                 next('/Shoe');
             }
         },  

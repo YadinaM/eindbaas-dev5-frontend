@@ -32,7 +32,7 @@ const loginUser = async () => {
         router.push('/orders');
       } else{
         router.push('/shoe');
-        window.alert('You are not an admin. Access denied.');
+        //window.alert('You are not an admin. Access denied.');
         //console.error('Access denied. User is not an admin.');
       }
 
