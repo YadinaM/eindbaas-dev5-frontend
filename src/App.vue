@@ -24,18 +24,9 @@
 </template>
 
 <style scoped>
-  :root{ /* css variabelen */
-      --colorText: black;
-      --colorButton: #F433FF;
-      --fontFamily: sans-serif;
-  }
-
-  body{
-    font-family: var(--fontFamily);
-  }
-
   nav{
     margin-top: 1em;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   .nav{
