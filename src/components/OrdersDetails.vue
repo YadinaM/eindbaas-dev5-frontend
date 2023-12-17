@@ -138,14 +138,14 @@ const formatDate = (dateString) => {
         <p class="order-details__info-item"><strong>Sole:</strong> {{ orderDetails.colorSole }}</p>
         <p class="order-details__info-item"><strong>Outside:</strong> {{ orderDetails.colorOutside }}</p>
         
-        <label for="textInput" class="order-details__label">Status: </label>
-        <input type="text"
-      id="textInput"
-      v-model="orderDetails.status"
-      placeholder="Current status"
-      class="order-details__input"
-      @input="updateStatus">
-        <button class="order-details__adjust-button" @click="updateStatus">Adjust</button>
+        <div class="order-details__status-container">
+          <label for="textInput" class="order-details__label">Status: </label>
+            <select id="statusSelect" v-model="orderDetails.status" class="order-details__input" @change="updateStatus">
+              <option value="in progress">In Progress</option>
+              <option value="on its way">On Its Way</option>
+              <option value="delivered">Delivered</option>
+            </select>
+          </div>
       </div>
       <div class="order-details__image">
         <img src="../assets/schoen.png" alt="tijdelijk">
@@ -191,14 +191,20 @@ const formatDate = (dateString) => {
     font-weight: bolder;
   }
 
+  
+  .order-details__status-container{
+    display: flex;
+  }
+
   .order-details__input {
     border-radius: 8px;
     background-color: #f9f9f9;
     border: none;
     padding: 15px 90px 15px 20px;
     display: block;
+    margin-top: -0.7em;
   }
-
+/*
   .order-details__adjust-button {
     background-color: black;
     border-radius: 8px;
@@ -210,11 +216,10 @@ const formatDate = (dateString) => {
     padding-top: 0.7em;
     padding-bottom: 0.7em;
     font-weight: bold;
-  }
+  }*/
 
   .order-details__image img {
     display: none;
-
   }
 
   @media (min-width: 800px) {
