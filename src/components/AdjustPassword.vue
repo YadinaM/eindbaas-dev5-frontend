@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-//import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { jwtDecode } from 'jwt-decode';
 
 //const route = useRoute();
-//const router = useRouter();
+const router = useRouter();
 
 let currentPassword = ref('');
 let newPassword = ref('');
@@ -38,6 +38,11 @@ const changePassword = async () => {
     console.error(error.message);
   }
 };
+
+const logout = () => {
+  localStorage.clear();
+  router.push('/');
+};
 </script>
 
 <template>
@@ -52,6 +57,9 @@ const changePassword = async () => {
 
       <button type="submit">Change Password</button>
     </form>
+  </div>
+  <div>
+    <a @click="logout">log out</a>
   </div>
 </template>
 
