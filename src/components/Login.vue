@@ -56,12 +56,11 @@ const loginUser = async () => {
   <div class="login-form">
     <form class="login-form__form" @submit.prevent="loginUser">
       <label class="login-form__label" for="username">Username</label>
-      <p class="login-form__error" v-if="errorMessage">{{ errorMessage }}</p>
       <input v-model="username" class="login-form__input" type="text" id="username" name="username">
 
       <label class="login-form__label" for="password">Password</label>
       <input v-model="password" class="login-form__input" type="password" id="password" name="password">
-
+      <p class="login-form__error" v-if="errorMessage">{{ errorMessage }}</p>
       <input class="login-form__submit" type="submit" value="Log in">
     </form>
   </div>
