@@ -46,23 +46,91 @@ const logout = () => {
 </script>
 
 <template>
-  <div>
-    <h2>Change Password</h2>
-    <form @submit.prevent="changePassword">
-      <label for="currentPassword">Current Password:</label>
-      <input type="password" id="currentPassword" v-model="currentPassword" required>
+<div class="content">
+    <div class="change-password">
+    <h2 class="change-password__title">Change Password</h2>
+    <div class="change-password__form-container">
+        <form class="change-password__form" @submit.prevent="changePassword">
+          <label class="change-password__label" for="currentPassword">Current Password:</label>
+          <input class="change-password__input" type="password" id="currentPassword" v-model="currentPassword" required>
 
-      <label for="newPassword">New Password:</label>
-      <input type="password" id="newPassword" v-model="newPassword" required>
+          <label class="change-password__label" for="newPassword">New Password:</label>
+          <input class="change-password__input" type="password" id="newPassword" v-model="newPassword" required>
 
-      <button type="submit">Change Password</button>
-    </form>
+          <button class="change-password__button" type="submit">Change Password</button>
+      </form>
+    </div>
   </div>
-  <div>
-    <a @click="logout">log out</a>
+  <div class="logout">
+    <a class="logout__button" @click="logout">log out</a>
   </div>
+</div>
 </template>
 
 <style scoped>
+  h2{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 1em;
+  }
 
+  .change-password__form-container{
+    display: flex;
+    justify-content: center;
+  }
+
+  .change-password__form{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+  }
+
+  .change-password__label{
+    margin-bottom: 0.8em;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .change-password__input{
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    padding: 0.8em;
+  }
+
+  .change-password__button{
+    background-color: white;
+    padding: 0.8em 1em;
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #F433FF;
+    border-width: 2px;
+    text-decoration: none;
+    color: black;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  .change-password{
+    margin-bottom: 2em;
+  }
+
+  .logout{
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    margin-top: 5em;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  @media (min-width: 600px) and (max-width: 1200px) {
+    h2{
+      margin-left: 2em;
+    }
+  }
+
+  @media (min-width: 1200px){
+    .change-password {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
 </style>
