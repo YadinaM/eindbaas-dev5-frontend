@@ -14,7 +14,7 @@ const shoes = ref([]);
 const username = ref(null);
 
 //connect websocket
-const ws = new WebSocket("ws://localhost:3000/primus");
+const ws = new WebSocket("wss://eindbaasdev.onrender.com/primus");
 ws.onopen = () => {
   console.log("Connected to websocket");
 };
@@ -36,7 +36,7 @@ const submitOrder = async () => {
     console.error("Username is null. Unable to submit order.");
     return;
   }
-  const response = await fetch("http://localhost:3000/api/v1/shoes", {
+  const response = await fetch("https://eindbaasdev.onrender.com/api/v1/shoes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const submitOrder = async () => {
 
 const fetchShoes = async () => {
   // Fetch the list of shoe orders from the backend
-  const response = await fetch("http://localhost:3000/api/v1/shoes", 
+  const response = await fetch("https://eindbaasdev.onrender.com/api/v1/users", 
   {
     headers: {
       "Content-Type": "application/json",

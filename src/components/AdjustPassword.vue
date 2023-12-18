@@ -14,7 +14,7 @@ const changePassword = async () => {
   const decodedToken = jwtDecode(localStorage.getItem('token'));
   const id = decodedToken.userId;
   try {
-    const apiUrl = `http://localhost:3000/api/v1/users/${id}`;
+    const apiUrl = `https://eindbaasdev.onrender.com/api/v1/users/${id}`;
 
     const response = await fetch(apiUrl, {
       method: 'PATCH',

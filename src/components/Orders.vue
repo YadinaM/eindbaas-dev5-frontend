@@ -2,7 +2,7 @@
     import { ref, onMounted } from 'vue';
     import { jwtDecode } from "jwt-decode";
     const orders = ref([]);
-    const ws = new WebSocket("ws://localhost:3000/primus");
+    const ws = new WebSocket("wss://eindbaasdev.onrender.com/primus");
 
     ws.onopen = () => {
         console.log("Connected to websocket");
@@ -32,7 +32,7 @@
         console.log(decoded);
         
         try {
-            const response = await fetch("http://localhost:3000/api/v1/shoes", {
+            const response = await fetch("https://eindbaasdev.onrender.com/api/v1/shoes", {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,

@@ -6,7 +6,7 @@ const orderDetails = ref(null);
 const route = useRoute();
 const router = useRouter();
 
-const ws = new WebSocket("ws://localhost:3000/primus");
+const ws = new WebSocket("wss://eindbaasdev.onrender.com/primus");
 ws.onopen = () => {
   console.log("Connected to websocket 😊");
 };
@@ -24,7 +24,7 @@ onMounted(async () => {
   const orderId = route.params.id;
 
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`,
+    const response = await fetch(`https://eindbaasdev.onrender.com/api/v1/shoes/${orderId}`,
     {headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -49,7 +49,7 @@ const updateStatus = async () => {
   const orderId = route.params.id;
 
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}/status`, {
+    const response = await fetch(`https://eindbaasdev.onrender.com/api/v1/shoes/${orderId}/status`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const deleteOrder = async () => {
   const orderId = route.params.id;
 
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/shoes/${orderId}`, {
+    const response = await fetch(`https://eindbaasdev.onrender.com/api/v1/shoes/${orderId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
