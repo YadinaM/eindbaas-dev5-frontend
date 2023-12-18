@@ -192,13 +192,14 @@ onMounted(() => {
   justify-content: space-between;
 }
 .shoe-title {
-  margin-left: 1em;
+  /*margin-left: 1em;*/
+  font-size: 1.5em;
 }
-.shoe-price {
+/*.shoe-price {
   margin-right: 2em;
-}
+}*/
 .shoe-image__img {
-  width: 20em;
+  width: 15em;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -221,20 +222,6 @@ onMounted(() => {
   border: none;
   background-color: #f9f9f9;
 }
-/*.order-form__container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.order-form__color {
-  width: 40px;
-  height: 40px;
-  border: none;
-  padding: 0;
-  margin: 0;
-  appearance: none; 
-}*/
 .order-form__submit {
   background-color: black;
   border-radius: 8px;
@@ -249,7 +236,7 @@ onMounted(() => {
 }
 @media (min-width: 500px){
   .shoe-image__img {
-  width: 35em;
+  width: 20em;
 }
 }
 @media (min-width: 768px) {
@@ -259,6 +246,9 @@ onMounted(() => {
   }
   .shoe-product, .order-form {
     flex: 1;
+  }
+  .shoe-product{
+    margin-left: 3em;
   }
   .order-form__form {
   width: 60%;

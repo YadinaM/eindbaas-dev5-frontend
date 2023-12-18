@@ -74,7 +74,8 @@ const logout = () => {
 <style scoped>
   h2{
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-left: 1em;
+    /*margin-left: 1em;*/
+    text-align: center;
   }
 
   .change-password__error{
