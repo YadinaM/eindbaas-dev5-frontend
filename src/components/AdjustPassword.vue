@@ -31,6 +31,7 @@ const changePassword = async () => {
     if (response.ok) {
       const responseData = await response.json();
       console.log(responseData.message);
+      errorMessage.value = '';
     } else {
       const errorData = await response.json();
       errorMessage.value = 'Current password is incorrect';
@@ -101,6 +102,9 @@ const logout = () => {
     margin-bottom: 1.5em;
     border-radius: 8px;
     padding: 0.8em;
+    padding: 10px 80px;
+    border: none;
+    background-color: #f9f9f9;
   }
 
   .change-password__button{
