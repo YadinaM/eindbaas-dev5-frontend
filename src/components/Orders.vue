@@ -194,7 +194,8 @@
         }
 
         .order{
-            font-size: 1.2em;
+            font-size: 1em;
+            padding-bottom: 1em;
         }
 
         .order__img img{
@@ -217,6 +218,7 @@
             margin-bottom: -1em;
             margin-left: -0.2em;
             display: inline-block;
+            margin-top: -0.2em;
         }
 
         .order__price {
