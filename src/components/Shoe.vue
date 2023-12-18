@@ -192,13 +192,14 @@ onMounted(() => {
   justify-content: space-between;
 }
 .shoe-title {
-  margin-left: 1em;
+  /*margin-left: 1em;*/
+  font-size: 1.5em;
 }
-.shoe-price {
+/*.shoe-price {
   margin-right: 2em;
-}
+}*/
 .shoe-image__img {
-  width: 20em;
+  width: 15em;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -249,7 +250,7 @@ onMounted(() => {
 }
 @media (min-width: 500px){
   .shoe-image__img {
-  width: 35em;
+  width: 20em;
 }
 }
 @media (min-width: 768px) {
@@ -259,6 +260,9 @@ onMounted(() => {
   }
   .shoe-product, .order-form {
     flex: 1;
+  }
+  .shoe-product{
+    margin-left: 3em;
   }
   .order-form__form {
   width: 60%;
